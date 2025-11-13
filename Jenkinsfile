@@ -67,7 +67,7 @@ docker compose up -d
                 echo '🩺 Checking service health...'
                 script {
                     sh 'sleep 5'
-                    def status = sh(script: "curl -s -o /dev/null -w '%{http_code}' http://localhost:8081", returnStdout: true).trim()
+                    def status = sh(script: "curl -s -o /dev/null -w '%{http_code}' http://localhost:8088", returnStdout: true).trim()
                     if (status == '200') {
                         echo "✅ Service is healthy and responding correctly!"
                     } else {
