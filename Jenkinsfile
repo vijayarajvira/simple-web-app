@@ -51,7 +51,7 @@ pipeline {
                     sh '''
                         echo "🧹 Removing old containers..."
                         docker rm -f hello-container || true
-                        docker compose down
+                        docker compose down || true
                         echo "🆕 Deploying new version..."
                         docker compose pull
                         docker compose up -d
@@ -66,5 +66,20 @@ pipeline {
                 script {
                     sh '''
                         sleep 5
-                        STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:_
+                        curl -s -o /dev/null -w "%{http_code}" http://localhost:8088
+                    '''
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "🎉 Deployment successful! Image pushed and service redeployed via Docker Compose."
+        }
+        failure {
+            echo "❌ Pipeline failed. Check the Jenkins logs for details."
+        }
+    }
+}
 
