@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  web:
+    image: vijayarajvira/hello-docker:v3
+    container_name: simple-web-app
+    ports:
+      - "8088:80"
+    restart: always
+
