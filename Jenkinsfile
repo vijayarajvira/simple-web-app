@@ -66,7 +66,7 @@ pipeline {
                 script {
                     sh '''
                         sleep 5
-                        curl -s -o /dev/null -w "%{http_code}" http://localhost:8088
+                        curl -s -o /dev/null -w "%{http_code}" http://localhost:8081
                     '''
                 }
             }
