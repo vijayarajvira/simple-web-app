@@ -45,44 +45,26 @@ pipeline {
         }
 
         stage('Deploy using Docker Compose') {
-    steps {
-        echo '🚀 Deploying using Docker Compose...'
-        script {
-           sh '''
-echo "🧹 Removing old containers..."
-docker rm -f hello-container || true
-docker compose down
-echo "🆕 Deploying new version..."
-docker compose pull
-docker compose up -d
-'''
-
-
-             }
-    }
-}
-
-        stage('Health Check') {
-    echo '🩺 Checking service health...'
-    script {
-        sh '''
-        sleep 5
-        curl -s -o /dev/null -w "%{http_code}" http://localhost:8088
-        '''
-    }
-}
-
+            steps {
+                echo '🚀 Deploying using Docker Compose...'
+                script {
+                    sh '''
+                        echo "🧹 Removing old containers..."
+                        docker rm -f hello-container || true
+                        docker compose down
+                        echo "🆕 Deploying new version..."
+                        docker compose pull
+                        docker compose up -d
+                    '''
+                }
             }
         }
-    }
 
-    post {
-        success {
-            echo "🎉 Deployment successful! Image pushed and service redeployed via Docker Compose."
-        }
-        failure {
-            echo "❌ Pipeline failed. Check the Jenkins logs for details."
-        }
-    }
-}
+        stage('Health Check') {
+            steps {
+                echo '🩺 Checking service health...'
+                script {
+                    sh '''
+                        sleep 5
+                        STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:_
 
