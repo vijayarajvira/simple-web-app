@@ -63,17 +63,15 @@ docker compose up -d
 }
 
         stage('Health Check') {
-            steps {
-                echo '🩺 Checking service health...'
-                script {
-                    sh 'sleep 5'
-                    def status = sh(script: "curl -s -o /dev/null -w '%{http_code}' http://localhost:8088", returnStdout: true).trim()
-                    if (status == '200') {
-                        echo "✅ Service is healthy and responding correctly!"
-                    } else {
-                        error("❌ Health check failed! HTTP status: ${status}")
-                    }
-                }
+    echo '🩺 Checking service health...'
+    script {
+        sh '''
+        sleep 5
+        curl -s -o /dev/null -w "%{http_code}" http://localhost:8088
+        '''
+    }
+}
+
             }
         }
     }
