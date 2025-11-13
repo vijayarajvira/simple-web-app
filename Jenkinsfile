@@ -48,15 +48,17 @@ pipeline {
     steps {
         echo '🚀 Deploying using Docker Compose...'
         script {
-            sh '''
-            echo 🧹 Removing old containers...
-            docker compose down || true
+           sh '''
+echo "🧹 Removing old containers..."
+docker rm -f hello-container || true
+docker compose down
+echo "🆕 Deploying new version..."
+docker compose pull
+docker compose up -d
+'''
 
-            echo 🆕 Deploying new version...
-            docker compose pull
-            docker compose up -d
-            '''
-        }
+
+             }
     }
 }
 
