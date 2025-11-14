@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo '📦 Cloning repository...'
-                git branch: 'main', url: 'https://github.com/vijayarajvira/devops-learning.git'
+                git branch: 'main', url: 'https://github.com/vijayarajvira/simple-web-app.git'
             }
         }
 
