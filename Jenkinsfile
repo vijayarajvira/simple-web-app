@@ -19,7 +19,7 @@ pipeline {
                 script {
                     IMAGE_TAG = "build-${env.BUILD_NUMBER}"
                     echo "🏗️ Building Docker image: ${IMAGE_NAME}:${IMAGE_TAG}"
-                    sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
+                    sh "docker build --no-cache -t ${IMAGE_NAME}:${IMAGE_TAG} ."
                     sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${IMAGE_NAME}:latest"
                 }
             }
