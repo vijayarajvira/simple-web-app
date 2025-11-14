@@ -50,7 +50,7 @@ pipeline {
                 script {
                     sh '''
                         echo "🧹 Removing old containers..."
-                        docker rm -f hello-container || true
+                        docker rm -f simple-web-app || true
                         docker compose down || true
                         echo "🆕 Deploying new version..."
                         docker compose pull
